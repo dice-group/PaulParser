@@ -1,0 +1,4 @@
+No.	Matric. no.	Name	First name	Adviser	Class	Module reference	Obligation level	Uni-mail	Subjects	Aimed degree	Subject semesters	
+Accepted
+1	7654321	Smith	Adam			M.007.4211 Project Group	Voluntary	adamsmith@mail.uni-paderborn.de		Master of Science	1	
+2	6754321	Doe	John			M.007.4211 Project Group	Voluntary	johndoe@mail.uni-paderborn.de		Master of Science	42

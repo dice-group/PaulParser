@@ -1,0 +1,4 @@
+Nr.	Matrikelnr.	Name	Vorname	Betreuer	Klasse	Modulbezug	Verpflichtungsgrad	Uni-Mail	Fächer	Angestrebter Abschluss	Fachsemester	
+Akzeptiert
+1	7654321	Smith	Adam			M.007.4211 Projektgruppe	Freiwillig	adamsmith@mail.uni-paderborn.de		Master of Science	1	
+2	6754321	Doe	John			M.007.4211 Projektgruppe	Freiwillig	johndoe@mail.uni-paderborn.de		Master of Science	42	
