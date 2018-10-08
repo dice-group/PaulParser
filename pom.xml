@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.dice-research.paul</groupId>
 	<artifactId>paul-parser</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>PAUL parser</name>
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
