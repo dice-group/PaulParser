@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.ParseException;
+
 /**
  * Main entry point
  * 
@@ -14,39 +18,80 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		if (args.length != 2) {
-			printInfo();
-			System.exit(0);
+		CommandLineInterface commandLineInterface = new CommandLineInterface();
+
+		// User has no arguments
+		if (args.length == 0) {
+			commandLineInterface.printHelp(commandLineInterface.getOptions());
+			return;
 		}
 
-		File inputFile = new File(args[0]);
+		// Parse arguments
+		CommandLine commandLine = null;
+		try {
+			commandLine = new DefaultParser().parse(commandLineInterface.getOptions(), args);
+		} catch (ParseException e) {
+			System.err.println("Error: " + e.getMessage());
+			commandLineInterface.printHelp(commandLineInterface.getOptions());
+			return;
+		}
+
+		// Check input file
+		File inputFile = new File(commandLine.getOptionValue(CommandLineInterface.OPTION_INPUT));
 		if (!inputFile.canRead()) {
 			System.err.println("Can not read file " + inputFile.getPath());
-			System.exit(1);
+			return;
 		}
 
-		File outputFile = new File(args[1]);
-
+		// Parse input file
 		List<StudentContainer> students = new LinkedList<StudentContainer>();
 		try {
 			students = new PaulParser().parse(inputFile).getStudents();
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
-			System.exit(1);
+			return;
 		}
 
+		// Check types
+		String types = commandLine.getOptionValue(CommandLineInterface.OPTION_TYPES);
+		if (null == types) {
+			// Use all types
+			StringBuilder stringBuilder = new StringBuilder();
+			for (String key : CommandLineInterface.TYPES.keySet()) {
+				stringBuilder.append(key);
+			}
+			types = stringBuilder.toString();
+		} else {
+			// Check defined types
+			for (int i = 0; i < types.length(); i++) {
+				String type = types.substring(i, i + 1);
+				if (!CommandLineInterface.TYPES.keySet().contains(type)) {
+					System.err.println("Error: Unknown type " + type);
+					return;
+				}
+			}
+		}
+
+		// Write / print
 		try {
-			new CsvPrinter(students).print(outputFile);
+			String outputFile = commandLine.getOptionValue(CommandLineInterface.OPTION_OUTPUT);
+			CsvPrinter csvPrinter = new CsvPrinter(students, types);
+
+			// Demiliter
+			String demiliter = commandLine.getOptionValue(CommandLineInterface.OPTION_DEMILITER);
+			if (null != demiliter) {
+				csvPrinter.setDemiliter(demiliter.charAt(0));
+			}
+
+			// Print or write
+			if (outputFile == null) {
+				csvPrinter.print();
+			} else {
+				csvPrinter.print(new File(outputFile));
+			}
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
-			System.exit(1);
+			return;
 		}
-	}
-
-	protected static void printInfo() {
-		System.out.println("Parser for PAUL extended participants list");
-		System.out.println("Find list at: PAUL > My Courses > Term administration > Course Overview");
-		System.out.println("                   > Event > Participants > Extended list");
-		System.out.println("Call parameters: <input.txt> <output.csv>");
 	}
 }

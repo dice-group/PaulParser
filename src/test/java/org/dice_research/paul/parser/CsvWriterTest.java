@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.dice_research.paul_parser.CommandLineInterface;
 import org.dice_research.paul_parser.CsvPrinter;
 import org.dice_research.paul_parser.PaulParser;
 import org.dice_research.paul_parser.StudentContainer;
@@ -19,7 +20,7 @@ public class CsvWriterTest {
 	public void testWrittenFile() throws IOException {
 		PaulParser parser = new PaulParser();
 		parser.parse(Resources.getResource(Resources.FILE_ENGLISH));
-		CsvPrinter csvPrinter = new CsvPrinter(parser.getStudents());
+		CsvPrinter csvPrinter = new CsvPrinter(parser.getStudents(), getAllTypes());
 		File testFile = File.createTempFile("test", ".tmp");
 		testFile.deleteOnExit();
 		csvPrinter.print(testFile);
@@ -38,7 +39,7 @@ public class CsvWriterTest {
 		StudentContainer student = students.get(0);
 		student.firstName = "Alice,Bob";
 
-		CsvPrinter csvPrinter = new CsvPrinter(students);
+		CsvPrinter csvPrinter = new CsvPrinter(students, getAllTypes());
 		File testFile = File.createTempFile("test", ".tmp");
 		testFile.deleteOnExit();
 		csvPrinter.print(testFile);
@@ -47,4 +48,11 @@ public class CsvWriterTest {
 		assertTrue(data.contains("\"Alice,Bob\""));
 	}
 
+	protected String getAllTypes() {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (String key : CommandLineInterface.TYPES.keySet()) {
+			stringBuilder.append(key);
+		}
+		return stringBuilder.toString();
+	}
 }
