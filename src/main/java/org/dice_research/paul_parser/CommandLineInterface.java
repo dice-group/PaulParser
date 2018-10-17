@@ -46,7 +46,7 @@ public class CommandLineInterface {
 		TYPES.put(TYPE_EMAIL, "email address");
 	}
 
-	protected static String getTypesInfo() {
+	public static String getTypesInfo() {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (String key : TYPES.keySet()) {
 			stringBuilder.append(" ");

@@ -12,6 +12,8 @@ Use me to create CSV files.
 - Get the latest [release](https://github.com/dice-group/PaulParser/releases)
 - Start a terminal and type  
   `java -jar paul-parser.jar`
+- Or just execute it using Java to start the GUI  
+  (`chmod +x paul-parser.jar `)
 
 ## Options
 

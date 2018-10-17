@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.ParseException;
+import org.dice_research.paul_parser.gui.Gui;
 
 /**
  * Main entry point
@@ -23,6 +24,10 @@ public class Main {
 		// User has no arguments
 		if (args.length == 0) {
 			commandLineInterface.printHelp(commandLineInterface.getOptions());
+
+			System.out.println("Starting GUI");
+			Gui.run();
+
 			return;
 		}
 
@@ -80,7 +85,13 @@ public class Main {
 			// Demiliter
 			String demiliter = commandLine.getOptionValue(CommandLineInterface.OPTION_DEMILITER);
 			if (null != demiliter) {
-				csvPrinter.setDemiliter(demiliter.charAt(0));
+				if (demiliter.isEmpty()) {
+					csvPrinter.setDemiliter('\0');
+				} else if (demiliter.startsWith("\\t")) {
+					csvPrinter.setDemiliter('\t');
+				} else {
+					csvPrinter.setDemiliter(demiliter.charAt(0));
+				}
 			}
 
 			// Print or write

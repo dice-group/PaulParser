@@ -40,6 +40,11 @@ public class CsvPrinter {
 		printData(csvPrinter);
 	}
 
+	public void print(Appendable out) throws IOException {
+		CSVPrinter csvPrinter = new CSVPrinter(out, this.csvFormat);
+		printData(csvPrinter);
+	}
+
 	protected void printData(CSVPrinter csvPrinter) throws IOException {
 		for (StudentContainer student : students) {
 			List<String> values = new LinkedList<String>();
