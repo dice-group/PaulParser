@@ -1,5 +1,8 @@
 # PAUL Parser
 
+![PAUL Parser screenshot](doc/screenshot.png)
+
+
 Hello, I am PAUL Parser,  
 a parser for PAUL extended participants list.  
 Find the list at: PAUL > My
