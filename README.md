@@ -8,6 +8,7 @@ a parser for PAUL extended participants list.
 Find the list at: PAUL > My
 Courses > Term administration > Course Overview > Event > Participants >
 Extended list.  
+Mark the table (extended list) on the PAUL website. Copy it. Paste it to the PaulParser text field.  
 Use me to create CSV files.
 
 ## Download and run
